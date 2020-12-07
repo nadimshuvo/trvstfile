@@ -1,0 +1,24 @@
+{
+  "name": "travelsite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nadimshuvo/travelsite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nadimshuvo/travelsite/issues"
+  },
+  "homepage": "https://github.com/nadimshuvo/travelsite#readme",
+  "dependencies": {
+    "loadash": "^1.0.0",
+    "normalize.css": "^8.0.1"
+  }
+}
