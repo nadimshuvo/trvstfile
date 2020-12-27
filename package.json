@@ -20,7 +20,8 @@
   "homepage": "https://github.com/nadimshuvo/travelsite#readme",
   "dependencies": {
     "loadash": "^1.0.0",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "postcss-mixins": "^7.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.1.0",
