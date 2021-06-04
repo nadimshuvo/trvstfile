@@ -4,8 +4,10 @@ const postCSSPlugins = [
     require('postcss-mixins'),
     require('postcss-simple-vars'),
     require('postcss-nested'),
+    require('postcss-hexrgba'),
     require('autoprefixer')
 ]
+    
 
 module.exports = {
     entry: './app/assets/scripts/App.js',
