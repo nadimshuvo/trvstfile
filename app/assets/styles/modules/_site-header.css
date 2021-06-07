@@ -3,13 +3,22 @@
     position: absolute;
     z-index: 2;
     width: 100%;
+    transition: background-color .3s ease-out;
+
+    &--is-expended {
+        
+        background-color: rgba(47,85,114,.55) ;
+    }
 
     @mixin atMedium {
         background-color: rgba(47,85,114,.3);
     }
 
     &__btn-container {
-        float: right;
+        @mixin atMedium{
+            float: right;
+        }
+        
     }
 
     &__logo {
@@ -18,11 +27,6 @@
         left: 50%;
         transform: translateX(-50%);
         background-color: $mainBlue;
-<<<<<<< HEAD
-=======
-        left: 50%;
-        transform: translateX(-50%);
->>>>>>> 26afc072ce7db066818dcce4a1842618d3bc14a6
         padding: 13px 29px;
 
         @mixin atMedium {
@@ -32,38 +36,41 @@
         }
     }
 
-<<<<<<< HEAD
     &__menu-icon{
        width: 20px;
        height: 20px;
        background-color: #FFF;
        position: absolute;
+       z-index: 10;
        top: 10px;
        right: 10px;
 
        @mixin atMedium {
            display: none;
        }
-=======
-    &__menu-icon {
-        width: 20px;
-        height: 20px;
-        background-color: #FFF;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-
-        @mixin atMedium {
-            display: none;
-        }
->>>>>>> 26afc072ce7db066818dcce4a1842618d3bc14a6
     }
 
     &__menu-content {
-        display: none;
+        opacity: 0;
+        transform: scale(1.2) ;
+        transition: all .3s ease-out;
+        position: relative;
+        z-index: -10;
+        padding-top: 90px;
+        text-align: center;
 
         @mixin atMedium {
-            display: block;
+            opacity: 1;
+            z-index: 1;
+            padding-top: 0;
+            transform: scale(1);
         }
+
+        &--is-visible {
+            opacity: 1;
+            z-index: 1;
+            transform: scale(1);
+        }
+        
     }
 } 
