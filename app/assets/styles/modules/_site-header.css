@@ -93,7 +93,7 @@
 
         .site-header__menu-icon__middle {
             opacity: 0;
-            transform: scale(00);
+            transform: scale(0);
         }
 
         &::after {
