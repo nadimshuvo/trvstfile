@@ -1,38 +1,68 @@
+import debounce from "lodash/debounce";
 import throttle from "lodash/throttle";
 
-class RevealOnScroll {
-  constructor(els, thresholdPercent) {
-    this.thresholdPercent = thresholdPercent;
-    this.itemsToReveal = els;
+class StickyHeader {
+  constructor() {
+    this.siteHeader = document.querySelector(".site-header");
+    this.pageSections = document.querySelectorAll(".page-section");
     this.browserHeight = window.innerHeight;
-    this.hideInitially();
-    this.scrollThrottle = throttle(this.calcCaller, 200).bind(this);
+    this.previousScrollY = window.scrollY;
     this.events();
   }
 
-  hideInitially() {
-    this.itemsToReveal.forEach((el) => {
-      el.classList.add("reveal-item");
-      el.isRevealed = false;
-    });
-    this.itemsToReveal[this.itemsToReveal.length - 1].isLastItem = true;
+  events() {
+    window.addEventListener(
+      "scroll",
+      throttle(() => this.runOnScroll(), 200)
+    );
+    window.addEventListener(
+      "resize",
+      debounce(() => {
+        this.browserHeight = window.innerHeight;
+      }, 333)
+    );
   }
 
-  calcCaller() {
-    console.log("Scroll function ran");
-    this.itemsToReveal.forEach((el) => {
-      if (el.isRevealed == false) {
-        this.calculateIfScrolledTo(el);
-      }
-    });
+  runOnScroll() {
+    this.determineScrollDirection();
+
+    if (window.scrollY > 60) {
+      this.siteHeader.classList.add("site-header--dark");
+    } else {
+      this.siteHeader.classList.remove("site-header--dark");
+    }
+
+    this.pageSections.forEach((el) => this.calcSection(el));
   }
 
-  calculateIfScrolledTo(el) {
-    if (window.scrollY + this.browserHeight > el.offsetTop) {
-      console.log("Element was calculated");
+  determineScrollDirection() {
+    if (window.scrollY > this.previousScrollY) {
+      this.scrollDirection = "down";
+    } else {
+      this.scrollDirection = "up";
+    }
+
+    this.previousScrollY = window.scrollY;
+  }
+
+  calcSection(el) {
+    if (
+      window.scrollY + this.browserHeight > el.offsetTop &&
+      window.scrollY < el.offsetTop + el.offsetHeight
+    ) {
       let scrollPercent =
         (el.getBoundingClientRect().top / this.browserHeight) * 100;
-      if (scrollPercent < this.thresholdPercent) {
+      if (
+        (scrollPercent < 18 &&
+          scrollPercent > -0.1 &&
+          this.scrollDirection == "down") ||
+        (scrollPercent < 33 && this.scrollDirection == "up")
+      ) {
+        let matchingLink = el.getAttribute("date-matching-link");
+        document
+          .querySelectorAll(`.primary-nav a:not(${matchingLink})`)
+          .forEach((el) => el.classList.remove("is-current-linkl"));
+        document.querySelector(matchingLink).classList.add("is-current-link");
       }
     }
   }
